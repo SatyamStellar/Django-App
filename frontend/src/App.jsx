@@ -1,10 +1,5 @@
-// App.jsx
-import React, { useEffect } from "react";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Navigate,
-} from "react-router-dom";
+import react from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
@@ -12,55 +7,34 @@ import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function Logout() {
-  useEffect(() => {
-    localStorage.clear();
-  }, []);
+  localStorage.clear();
   return <Navigate to="/login" />;
 }
 
 function RegisterAndLogout() {
-  useEffect(() => {
-    localStorage.clear();
-  }, []);
+  localStorage.clear();
   return <Register />;
 }
 
-const router = createBrowserRouter(
-  [
-    {
-      path: "/",
-      element: (
-        <ProtectedRoute>
-          <Home />
-        </ProtectedRoute>
-      ),
-    },
-    {
-      path: "/login",
-      element: <Login />,
-    },
-    {
-      path: "/logout",
-      element: <Logout />,
-    },
-    {
-      path: "/register",
-      element: <RegisterAndLogout />,
-    },
-    {
-      path: "*",
-      element: <NotFound />,
-    },
-  ],
-  {
-    future: {
-      v7_startTransition: true,
-    },
-  }
-);
-
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/register" element={<RegisterAndLogout />} />
+        <Route path="*" element={<NotFound />}></Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
