@@ -16,7 +16,7 @@ function RegisterAndLogout() {
   return <Register />;
 }
 
-function App() {
+const App = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -35,6 +35,6 @@ function App() {
       </Routes>
     </BrowserRouter>
   );
-}
+};
 
 export default App;
