@@ -1,40 +1,66 @@
-import react from "react"
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
-import Login from "./pages/Login"
-import Register from "./pages/Register"
-import Home from "./pages/Home"
-import NotFound from "./pages/NotFound"
-import ProtectedRoute from "./components/ProtectedRoute"
+// App.jsx
+import React, { useEffect } from "react";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function Logout() {
-  localStorage.clear()
-  return <Navigate to="/login" />
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
+  return <Navigate to="/login" />;
 }
 
 function RegisterAndLogout() {
-  localStorage.clear()
-  return <Register />
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
+  return <Register />;
 }
+
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: (
+        <ProtectedRoute>
+          <Home />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/logout",
+      element: <Logout />,
+    },
+    {
+      path: "/register",
+      element: <RegisterAndLogout />,
+    },
+    {
+      path: "*",
+      element: <NotFound />,
+    },
+  ],
+  {
+    future: {
+      v7_startTransition: true,
+    },
+  }
+);
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/login" element={<Login />} />
-        <Route path="/logout" element={<Logout />} />
-        <Route path="/register" element={<RegisterAndLogout />} />
-        <Route path="*" element={<NotFound />}></Route>
-      </Routes>
-    </BrowserRouter>
-  )
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;
