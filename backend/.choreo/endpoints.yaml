@@ -1,6 +1,6 @@
 schemaVersion: "1.2"
 endpoints:
-  - name: rest-api-be2
+  - name: "REST API"
     displayName: REST API
     service:
       basePath: /
