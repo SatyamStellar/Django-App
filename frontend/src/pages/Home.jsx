@@ -47,20 +47,33 @@ function Home() {
 
     return (
         <div className="min-h-screen bg-gray-900 py-8 px-4">
+            <div className="flex justify-end mb-6">
+                <button
+                    onClick={() => window.location.href = "/logout"}
+                    className="px-4 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition duration-200"
+                >
+                    Logout
+                </button>
+            </div>
+
             <div className="max-w-3xl mx-auto">
                 <div className="mb-8">
-                    <h2 className="text-2xl font-bold text-white mb-4">Notes</h2>
-                    {notes.map((note) => (
-                        <Note note={note} onDelete={deleteNote} key={note.id} />
-                    ))}
+                    <h2 className="text-3xl font-bold text-white mb-6">Your Notes</h2>
+                    {notes.length > 0 ? (
+                        notes.map((note) => (
+                            <Note note={note} onDelete={deleteNote} key={note.id} />
+                        ))
+                    ) : (
+                        <p className="text-gray-400">No notes available. Create one below!</p>
+                    )}
                 </div>
-                <h2 className="text-2xl font-bold text-white mb-4">Create a Note</h2>
+                <h2 className="text-3xl font-bold text-white mb-6">Create a New Note</h2>
                 <form
                     onSubmit={createNote}
-                    className="bg-gray-800 p-6 rounded-2xl shadow-xl space-y-4 max-w-lg mx-auto"
+                    className="bg-gray-800 p-8 rounded-3xl shadow-xl space-y-6 max-w-lg mx-auto"
                 >
                     <div>
-                        <label htmlFor="title" className="block text-sm font-medium text-gray-300">
+                        <label htmlFor="title" className="block text-base font-medium text-gray-300">
                             Title:
                         </label>
                         <input
@@ -70,11 +83,11 @@ function Home() {
                             required
                             onChange={(e) => setTitle(e.target.value)}
                             value={title}
-                            className="mt-1 w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200 placeholder-gray-400"
+                            className="mt-2 w-full p-4 bg-gray-700 text-white border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200 placeholder-gray-400"
                         />
                     </div>
                     <div>
-                        <label htmlFor="content" className="block text-sm font-medium text-gray-300">
+                        <label htmlFor="content" className="block text-base font-medium text-gray-300">
                             Content:
                         </label>
                         <textarea
@@ -83,14 +96,15 @@ function Home() {
                             required
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
-                            className="mt-1 w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200 placeholder-gray-400 min-h-[120px]"
+                            className="mt-2 w-full p-4 bg-gray-700 text-white border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200 placeholder-gray-400 min-h-[150px]"
                         />
                     </div>
-                    <input
+                    <button
                         type="submit"
-                        value="Submit"
-                        className="w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg hover:from-indigo-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition duration-200 cursor-pointer"
-                    />
+                        className="w-full py-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-lg font-semibold rounded-lg hover:from-indigo-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition duration-200 cursor-pointer"
+                    >
+                        Create Note
+                    </button>
                 </form>
             </div>
         </div>
